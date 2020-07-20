@@ -72,7 +72,7 @@
 
 // ================== Global Varialbes ==================
 var busMagImagesArray = [];
-
+var totalImageClicks = 0;
 
 
 
@@ -81,16 +81,16 @@ var busMagImagesArray = [];
 function busMagImage(busMagImageName, src) {
   this.busMagImageName = busMagImageName;
   this.imgSrc = src;
+  this.liveClicks = 0;
+  
   busMagImagesArray.push(this);
-  // this.liveClicks = 0;
-
 }
 
 busMagImage.prototype.renderBusMagImageOutput = function () {
   var target = document.getElementById('displayBusMagImg');
   var busMagImageLI = document.createElement('li');
   var busMagImageIMG = document.createElement('img');
-  console.log('into the protype');
+ 
   busMagImageIMG.src = this.imgSrc;
   busMagImageIMG.alt = this.busMagImageName;
   busMagImageLI.appendChild(busMagImageIMG);
@@ -104,10 +104,28 @@ busMagImage.prototype.renderBusMagImageOutput = function () {
 
 }
 
+function countClickOnBusMagImage(event) {
+  console.log(event.target);
+  if (event.target.tagName === 'IMG') {
+    totalImageClicks++;
+    console.log(totalImageClicks);
+
+    for (var busMagImagesIndex = 0; busMagImagesIndex < busMagImagesArray.length; busMagImagesIndex++) {
+      if (busMagImagesArray[busMagImagesIndex].imgSrc === event.target.getAttribute('src')) {
+        busMagImagesArray[busMagImagesIndex].liveClicks++;
+        console.log('YUP! Correct!')
+      }
+    }
+  }
+
+}
+
+
 
 
 // ================== Function Calls =====================
-
+var listOfImages = document.getElementById('displayBusMagImg')
+listOfImages.addEventListener('click', countClickOnBusMagImage);
 
 new busMagImage('R2D2 Bag', 'images/bag.jpg');
 new busMagImage ('Banana Slicer', 'images/banana.jpg');
