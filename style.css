@@ -1,0 +1,13 @@
+
+
+img {
+  height: 150px;
+  outline: dotted 2px green;
+}
+#displayBusMagImage {
+  display: flex;
+}
+p{
+  float: left;
+  
+}
