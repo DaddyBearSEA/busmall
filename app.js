@@ -43,7 +43,7 @@
 //   - make the other 2 go away (like our table from salmon cookies);
 //   - display them (renderbusMagImageAsHtml());
 
-
+//TODO:  Compare the current indexes to the new random numbers
 
 // showClicks() :show the clicks per busMagImage live (live || after X clicks (at the end))
 //   - show them in a list
@@ -61,13 +61,7 @@
 
 // Until the endUser reaches  25 clicks, show the results as a list  FULL STOP @ 25
 
-// define a global variable called busMagImagesArray = [];
 
-// bus magImage : define a constructor (for the busMagImage image)
-//   - liveClicks: keep track of clicks
-//   - imageName : 'Floating busMagImage'
-//   - imageSrc : 'floating-busMagImage.jpg'
-//   - push `this` into the busMagImagesArray
 
 
 // ================== Global Varialbes ==================
@@ -82,6 +76,7 @@ function busMagImage(busMagImageName, src) {
   this.busMagImageName = busMagImageName;
   this.imgSrc = src;
   this.liveClicks = 0;
+ 
   
   busMagImagesArray.push(this);
 }
@@ -103,9 +98,20 @@ busMagImage.prototype.renderBusMagImageOutput = function () {
   target.appendChild(busMagImageLI);
 
 }
+function compareNumberOfClicks() {
+  console.log(totalImageClicks + 'close to finish');
+  if (totalImageClicks === 10) {
+    var compareNumberofClicks = document.getElementById('displayBusMagImg');
+    listOfImages.removeEventListner('click', countClickOnBusMagImage);
+    console.log('you are done!')
+  }
+  else {
+    console.log('Please click on an Image');
+  }
+}
 
 function countClickOnBusMagImage(event) {
-  console.log(event.target);
+
   if (event.target.tagName === 'IMG') {
     totalImageClicks++;
     console.log(totalImageClicks);
@@ -114,30 +120,55 @@ function countClickOnBusMagImage(event) {
       if (busMagImagesArray[busMagImagesIndex].imgSrc === event.target.getAttribute('src')) {
         busMagImagesArray[busMagImagesIndex].liveClicks++;
         console.log('YUP! Correct!')
-      }
+      }      
     }
+    compareNumberOfClicks()
   }
+
+}
+function displayNewBusMagImages() {
+  var newImgIndex1 = Math.floor(Math.random() * busMagImagesArray.length);
+  var newImgIndex2 = Math.floor(Math.random() * busMagImagesArray.length);
+  var newImgIndex3 = Math.floor(Math.random() * busMagImagesArray.length);
+  console.log(newImgIndex1 + ' and ' + newImgIndex2 + ' and ' + newImgIndex3);
+
+  var newDisplayBusMagImg1 = busMagImagesArray[newImgIndex1];
+  var newDisplayBusMagImg2 = busMagImagesArray[newImgIndex2];
+  var newDisplayBusMagImg3 = busMagImagesArray[newImgIndex3];
+
+  var compareNumberOfClicks = document.getElementById('displayBusMagImg');
+  compareNumberOfClicks.innerHTML = '';
+  newDisplayBusMagImg1.renderBusMagImageOutput();
+  newDisplayBusMagImg2.renderBusMagImageOutput();
+  newDisplayBusMagImg3.renderBusMagImageOutput();
+
 
 }
 
 
 
 
+
+
 // ================== Function Calls =====================
 var listOfImages = document.getElementById('displayBusMagImg')
+
 listOfImages.addEventListener('click', countClickOnBusMagImage);
 
 new busMagImage('R2D2 Bag', 'images/bag.jpg');
 new busMagImage ('Banana Slicer', 'images/banana.jpg');
 new busMagImage ('Bathroom Reader', 'images/bathroom.jpg');
+new busMagImage ('Open Toe Boots', 'images/boots.jpg');
+new busMagImage ('Breakfast Maker', 'images/breakfast.jpg');
+new busMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
+
+displayNewBusMagImages();
+
+// busMagImagesArray[newImgIndex1].renderBusMagImageOutput();
+// busMagImagesArray[newImgIndex2].renderBusMagImageOutput();
+// busMagImagesArray[newImgIndex3].renderBusMagImageOutput();
+// busMagImagesArray[3].renderBusMagImageOutput();
+// busMagImagesArray[4].renderBusMagImageOutput();
+// busMagImagesArray[5].renderBusMagImageOutput();
 
 
-busMagImagesArray[0].renderBusMagImageOutput();
-busMagImagesArray[1].renderBusMagImageOutput();
-busMagImagesArray[2].renderBusMagImageOutput();
-
-
-
-// new busMagImage ('Open Toe Boots', 'images/boots.jpg');
-// new busMagImage ('Breakfast Maker', 'images/breakfast.jpg');
-// new busMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
