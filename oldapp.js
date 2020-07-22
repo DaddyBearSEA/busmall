@@ -1,7 +1,6 @@
 'use strict'
 
 
-
 // ================== Global Varialbes ==================
 var busMagImagesArray = [];
 var totalImageClicks = 0;
@@ -14,7 +13,7 @@ function busMagImage(busMagImageName, src) {
   this.busMagImageName = busMagImageName;
   this.imgSrc = src;
   this.liveClicks = 0;
-  
+ 
   busMagImagesArray.push(this);
 }
 
@@ -31,44 +30,89 @@ busMagImage.prototype.renderBusMagImageOutput = function () {
   busMagImageNameP.textContent = this.busMagImageName;
   busMagImageLI.appendChild(busMagImageNameP);
 
-
   target.appendChild(busMagImageLI);
 
 }
 
+// TODO: this code doesn't work right now.
+
+function compareNumberOfClicks() {
+  console.log(totalImageClicks + 'close to finish');
+  if (totalImageClicks === 10) {
+    var compareNumberofClicks = document.getElementById('displayBusMagImg');
+    listOfImages.removeEventListner('click', countClickOnBusMagImage);
+    console.log('you are done!')
+  }
+  else {
+    console.log('Please click on an Image');
+  }
+}
+
 function countClickOnBusMagImage(event) {
-  console.log(event.target);
+
   if (event.target.tagName === 'IMG') {
     totalImageClicks++;
     console.log(totalImageClicks);
+    // added a click so refresh pics - call the function to refresh the pics.
+
 
     for (var busMagImagesIndex = 0; busMagImagesIndex < busMagImagesArray.length; busMagImagesIndex++) {
       if (busMagImagesArray[busMagImagesIndex].imgSrc === event.target.getAttribute('src')) {
         busMagImagesArray[busMagImagesIndex].liveClicks++;
         console.log('YUP! Correct!')
-      }
+      }      
     }
+    // we need a call to diplay image and renter totals
+    displayNewBusMagImages();
+
+
+
   }
 
+}
+function displayNewBusMagImages() {
+  
+  var newImgIndex0 = Math.floor(Math.random() * busMagImagesArray.length);
+  var newImgIndex1 = Math.floor(Math.random() * busMagImagesArray.length);
+  var newImgIndex2 = Math.floor(Math.random() * busMagImagesArray.length);
+  console.log(newImgIndex1 + ' and ' + newImgIndex2 + ' and ' + newImgIndex3);
+
+// // // var 1 !== var2 || var 3
+var newDisplayBusMagImg1 = busMagImagesArray[newImgIndex1];
+var newDisplayBusMagImg2 = busMagImagesArray[newImgIndex2];
+var newDisplayBusMagImg3 = busMagImagesArray[newImgIndex3];
+
+var compareNumberOfClicks = document.getElementById('displayBusMagImg');
+compareNumberOfClicks.innerHTML = '';
+newDisplayBusMagImg1.renderBusMagImageOutput();
+newDisplayBusMagImg2.renderBusMagImageOutput();
+newDisplayBusMagImg3.renderBusMagImageOutput();
 }
 
 
 
+// TODO: this doesn't work but needs fixing
+// compareNumberOfClicks()
 
 // ================== Function Calls =====================
-var listOfImages = document.getElementById('displayBusMagImg')
-listOfImages.addEventListener('click', countClickOnBusMagImage);
+// var listOfImages = document.getElementById('displayBusMagImg')
+// listOfImages.addEventListener('click', countClickOnBusMagImage);
 
 new busMagImage('R2D2 Bag', 'images/bag.jpg');
 new busMagImage ('Banana Slicer', 'images/banana.jpg');
 new busMagImage ('Bathroom Reader', 'images/bathroom.jpg');
+new busMagImage ('Open Toe Boots', 'images/boots.jpg');
+new busMagImage ('Breakfast Maker', 'images/breakfast.jpg');
+new busMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
 
+// displayNewBusMagImages();
 
-busMagImagesArray[0].renderBusMagImageOutput();
-busMagImagesArray[1].renderBusMagImageOutput();
-busMagImagesArray[2].renderBusMagImageOutput();
-
-
+busMagImagesArray[newImgIndex0].renderBusMagImageOutput();
+busMagImagesArray[newImgIndex1].renderBusMagImageOutput();
+busMagImagesArray[newImgIndex2].renderBusMagImageOutput();
+busMagImagesArray[newImgIndex3].renderBusMagImageOutput();
+busMagImagesArray[newImgIndex4].renderBusMagImageOutput();
+busMagImagesArray[newImgIndex5].renderBusMagImageOutput();
 
 
 // ========================== Start Chart.js ==========================
