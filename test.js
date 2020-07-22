@@ -1,4 +1,83 @@
 
+'use strict'
+
+
+
+
+// ================== Global Varialbes ==================
+var busMagImagesArray = [];
+var totalImageClicks = 0;
+
+
+
+// ==================== Functions =======================
+
+function busMagImage(busMagImageName, src) {
+  this.busMagImageName = busMagImageName;
+  this.imgSrc = src;
+  this.liveClicks = 0;
+  
+  busMagImagesArray.push(this);
+}
+
+busMagImage.prototype.renderBusMagImageOutput = function () {
+  var target = document.getElementById('displayBusMagImg');
+  var busMagImageLI = document.createElement('li');
+  var busMagImageIMG = document.createElement('img');
+ 
+  busMagImageIMG.src = this.imgSrc;
+  busMagImageIMG.alt = this.busMagImageName;
+  busMagImageLI.appendChild(busMagImageIMG);
+
+  var busMagImageNameP = document.createElement('busMagImageName');
+  busMagImageNameP.textContent = this.busMagImageName;
+  busMagImageLI.appendChild(busMagImageNameP);
+
+
+  target.appendChild(busMagImageLI);
+
+}
+
+function countClickOnBusMagImage(event) {
+  console.log(event.target);
+  if (event.target.tagName === 'IMG') {
+    totalImageClicks++;
+    console.log(totalImageClicks);
+
+    for (var busMagImagesIndex = 0; busMagImagesIndex < busMagImagesArray.length; busMagImagesIndex++) {
+      if (busMagImagesArray[busMagImagesIndex].imgSrc === event.target.getAttribute('src')) {
+        busMagImagesArray[busMagImagesIndex].liveClicks++;
+        console.log('YUP! Correct!')
+      }
+    }
+  }
+
+}
+
+
+
+
+// ================== Function Calls =====================
+var listOfImages = document.getElementById('displayBusMagImg')
+listOfImages.addEventListener('click', countClickOnBusMagImage);
+
+new busMagImage('R2D2 Bag', 'images/bag.jpg');
+new busMagImage ('Banana Slicer', 'images/banana.jpg');
+new busMagImage ('Bathroom Reader', 'images/bathroom.jpg');
+
+
+busMagImagesArray[0].renderBusMagImageOutput();
+busMagImagesArray[1].renderBusMagImageOutput();
+busMagImagesArray[2].renderBusMagImageOutput();
+
+
+
+// new busMagImage ('Open Toe Boots', 'images/boots.jpg');
+// new busMagImage ('Breakfast Maker', 'images/breakfast.jpg');
+// new busMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
+
+
+
 // Show the magImages, allow users to vote by click, 
 //  Until the endUser reaches  25 clicks, show the results as a list  FULL STOP @ 25
 
