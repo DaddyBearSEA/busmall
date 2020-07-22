@@ -5,7 +5,7 @@
 var busMagImagesArray = [];
 var totalImageClicks = 0;
 
-
+// TODO: calculate number of times the image displayed.
 
 // ==================== Functions =======================
 // constructor to build a new array of images with number of clicks
@@ -37,13 +37,13 @@ BusMagImage.prototype.renderBusMagImageOutput = function () {
 
 // this function compares the Number of Clicks to the max number you want a user to click
 function compareNumberOfClicks() { 
-  console.log(totalImageClicks + 'close to finish');
   if (totalImageClicks === 10) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
-    console.log('you are done!')
+    alert('You are done Clicking!');
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
     
-    outDisplayTotals();
+    outDisplayTotals();  // calls the function to diplays totals when = to the limit of clicks
+    makeMyChart(); // calls the function to make the chart
   }
   else {
     console.log('Please click on an Image');
@@ -56,12 +56,10 @@ function countClickOnBusMagImage(event) {
 
   if (event.target.tagName === 'IMG') {
     totalImageClicks++;
-    console.log(totalImageClicks);
 
     for (var busMagImagesIndex = 0; busMagImagesIndex < busMagImagesArray.length; busMagImagesIndex++) {
       if (busMagImagesArray[busMagImagesIndex].imgSrc === event.target.getAttribute('src')) {
         busMagImagesArray[busMagImagesIndex].liveClicks++;
-        console.log('YUP! Correct!')
       }      
     }
     compareNumberOfClicks()
@@ -167,37 +165,41 @@ new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
 displayNewBusMagImages();
 
 
+// =============== Start to Rendering Chart ================
 
-
-// ========================== Start Chart.js ==========================
-
+// =============== DATA working with ====================
 /*
-1 Grab the number of total clicks per image from the array
-0: busMagImage {busMagImageName: "R2D2 Bag", imgSrc: "images/bag.jpg", liveClicks: 7}
-1: busMagImage {busMagImageName: "Banana Slicer", imgSrc: "images/banana.jpg", liveClicks: 7}
-2: busMagImage {busMagImageName: "Bathroom Reader", imgSrc: "images/bathroom.jpg", liveClicks: 0}
-3: busMagImage {busMagImageName: "Open Toe Boots", imgSrc: "images/boots.jpg", liveClicks: 0}
-4: busMagImage {busMagImageName: "Breakfast Maker", imgSrc: "images/breakfast.jpg", liveClicks: 0}
-5: busMagImage {busMagImageName: "Bubble Gum Meatballs", imgSrc: "images/bubblegum.jpg", liveClicks: 0}
-length: 6
-
-2. put the number into the Graph.
-3. create an array for the labels.
+0: BusMagImage {busMagImageName: "R2D2 Bag", imgSrc: "images/bag.jpg", liveClicks: 1}
+1: BusMagImage {busMagImageName: "Banana Slicer", imgSrc: "images/banana.jpg", liveClicks: 0}
+2: BusMagImage {busMagImageName: "Bathroom Reader", imgSrc: "images/bathroom.jpg", liveClicks: 2}
+3: BusMagImage {busMagImageName: "Open Toe Boots", imgSrc: "images/boots.jpg", liveClicks: 1}
+4: BusMagImage {busMagImageName: "Breakfast Maker", imgSrc: "images/breakfast.jpg", liveClicks: 2}
+5: BusMagImage {busMagImageName: "Bubble Gum Meatballs", imgSrc: "images/bubblegum.jpg", liveClicks: 2}
+6: BusMagImage {busMagImageName: "Desk Chair", imgSrc: "images/chair.jpg", liveClicks: 2}
+length: 7
 
 
 
 */
+// ================ Create Data for Chart =================
+
+// ------- Make my Chart -------
+// chart should be created after the number of click = the Value of number of clicks
+
+
+function makeMyChart() {
+  console.log('You hit function makeMyChart!');
+  var inputMyLabels = [];
+  var inputMyData = [];
+  for (var i = 0; i < busMagImagesArray.length; i++){
+    inputMyLabels.push(busMagImagesArray[i].busMagImageName);
+    inputMyData.push(busMagImagesArray[i].liveClicks);
+
+}
 
 
 
-
-
-
-
-
-// =============== Start to Rendering Chart ================
-
-// var fakeDataForNow = busArray[4, 5, 10, 12];
+  // =============chart js ======================
 
 var ctx = document.getElementById('myChart');
 
@@ -205,25 +207,63 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['R2D2', 'Banana', 'Reader', 'Boots', 'Breakfast', 'Meatballs'],
+        labels: inputMyLabels,
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: inputMyData,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
+                'rgba(54, 255, 235, 0.2)',
+                'rgba(255, 215, 86, 0.2)',
+                'rgba(75, 217, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(54, 162, 105, 0.2)',
+                'rgba(217, 206, 86, 0.2)',
+                'rgba(75, 192, 217, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(115, 162, 235, 0.2)',
+                'rgba(255, 206, 15, 0.2)',
+                'rgba(115, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(54, 217, 235, 0.2)',
+                'rgba(255, 217, 86, 0.2)',
+                'rgba(0, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(115, 255, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
         }]
@@ -239,3 +279,80 @@ var myChart = new Chart(ctx, {
     }
 });
 
+// ===================== Begin 2nd Chart =====================
+// var ctx = document.getElementById('myChart2').getContext('2d');
+// var myChart2 = new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//         labels: ['USB', 'Chair', 'Sleaper', 'Wine Glass', 'Water Can', 'Unicorn'],
+//         datasets: [{
+//             label: 'Total Times Shown',
+//             data: [12, 19, 3, 5, 2, 3],
+//             backgroundColor: [
+//                 'rgba(255, 99, 132, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 159, 64, 0.2)'
+//             ],
+//             borderColor: [
+//               'rgba(255, 99, 132, 1)',
+//               'rgba(54, 162, 235, 1)',
+//               'rgba(255, 206, 86, 1)',
+//               'rgba(75, 192, 192, 1)',
+//               'rgba(153, 102, 255, 1)',
+//               'rgba(54, 162, 235, 1)',
+//               'rgba(255, 206, 86, 1)',
+//               'rgba(75, 192, 192, 1)',
+//               'rgba(153, 102, 255, 1)',
+//               'rgba(54, 162, 235, 1)',
+//               'rgba(255, 206, 86, 1)',
+//               'rgba(75, 192, 192, 1)',
+//               'rgba(153, 102, 255, 1)',
+//               'rgba(54, 162, 235, 1)',
+//               'rgba(255, 206, 86, 1)',
+//               'rgba(75, 192, 192, 1)',
+//               'rgba(153, 102, 255, 1)',
+//               'rgba(54, 162, 235, 1)',
+//               'rgba(255, 206, 86, 1)',
+//               'rgba(75, 192, 192, 1)',
+//               'rgba(153, 102, 255, 1)',
+//               'rgba(255, 206, 86, 1)',
+//               'rgba(75, 192, 192, 1)',
+//               'rgba(153, 102, 255, 1)',
+//               'rgba(255, 159, 64, 1)'
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             yAxes: [{
+//                 ticks: {
+//                     beginAtZero: true
+//                 }
+//             }]
+//         }
+//     }
+// });
+}
