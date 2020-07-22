@@ -33,17 +33,20 @@ busMagImage.prototype.renderBusMagImageOutput = function () {
   target.appendChild(busMagImageLI);
 
 }
-function compareNumberOfClicks() {
-  console.log(totalImageClicks + 'close to finish');
-  if (totalImageClicks === 10) {
-    var compareNumberofClicks = document.getElementById('displayBusMagImg');
-    listOfImages.removeEventListner('click', countClickOnBusMagImage);
-    console.log('you are done!')
-  }
-  else {
-    console.log('Please click on an Image');
-  }
-}
+
+// TODO: this code doesn't work right now.
+
+// function compareNumberOfClicks() {
+//   console.log(totalImageClicks + 'close to finish');
+//   if (totalImageClicks === 10) {
+//     var compareNumberofClicks = document.getElementById('displayBusMagImg');
+//     listOfImages.removeEventListner('click', countClickOnBusMagImage);
+//     console.log('you are done!')
+//   }
+//   else {
+//     console.log('Please click on an Image');
+//   }
+// }
 
 function countClickOnBusMagImage(event) {
 
@@ -59,7 +62,7 @@ function countClickOnBusMagImage(event) {
         console.log('YUP! Correct!')
       }      
     }
-    compareNumberOfClicks()
+ 
   }
 
 }
@@ -85,7 +88,8 @@ newDisplayBusMagImg3.renderBusMagImageOutput();
 
 
 }
-
+// TODO: this doesn't work but needs fixing
+// compareNumberOfClicks()
 
 // ================== Function Calls =====================
 var listOfImages = document.getElementById('displayBusMagImg')
