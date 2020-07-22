@@ -9,7 +9,7 @@ var totalImageClicks = 0;
 
 // ==================== Functions =======================
 
-function busMagImage(busMagImageName, src) {
+function BusMagImage(busMagImageName, src) {
   this.busMagImageName = busMagImageName;
   this.imgSrc = src;
   this.liveClicks = 0;
@@ -18,7 +18,7 @@ function busMagImage(busMagImageName, src) {
   busMagImagesArray.push(this);
 }
 
-busMagImage.prototype.renderBusMagImageOutput = function () {
+BusMagImage.prototype.renderBusMagImageOutput = function () {
   var target = document.getElementById('displayBusMagImg');
   var busMagImageLI = document.createElement('li');
   var busMagImageIMG = document.createElement('img');
@@ -35,12 +35,16 @@ busMagImage.prototype.renderBusMagImageOutput = function () {
   target.appendChild(busMagImageLI);
 
 }
+
+
 function compareNumberOfClicks() {
   console.log(totalImageClicks + 'close to finish');
   if (totalImageClicks === 10) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
-    listOfImages.removeEventListner('click', countClickOnBusMagImage);
     console.log('you are done!')
+    listOfImages.removeEventListener('click', countClickOnBusMagImage);
+    displayNewBusMagImages();
+    outDisplayTotals();
   }
   else {
     console.log('Please click on an Image');
@@ -63,11 +67,11 @@ function countClickOnBusMagImage(event) {
   }
 
 }
+
 function displayNewBusMagImages() {
   var newImgIndex1 = Math.floor(Math.random() * busMagImagesArray.length);
   var newImgIndex2 = Math.floor(Math.random() * busMagImagesArray.length);
   var newImgIndex3 = Math.floor(Math.random() * busMagImagesArray.length);
-  console.log(newImgIndex1 + ' and ' + newImgIndex2 + ' and ' + newImgIndex3);
 
   var newDisplayBusMagImg1 = busMagImagesArray[newImgIndex1];
   var newDisplayBusMagImg2 = busMagImagesArray[newImgIndex2];
@@ -78,28 +82,71 @@ function displayNewBusMagImages() {
   newDisplayBusMagImg1.renderBusMagImageOutput();
   newDisplayBusMagImg2.renderBusMagImageOutput();
   newDisplayBusMagImg3.renderBusMagImageOutput();
+}
 
+  // var currentImgI1 = [2, 3, 4];
+  // var newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
+  // while (newImg1 === currentImgI1[2] || newImg1 === currentImgI1[1]){
+  //   newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
+  // }
+  // var newImg2 = Math.floor(Math.random() * busMagImagesArray.length);
+  //   while (
+  //     newImg1 === newImg2 ||
+  //     newImg2 === currentImgI1[0] ||
+  //     newImg2 === currentImgI1[1]
+  //   ) {
+  //     console.log('Change Images');
+  //     newImg2 === Math.floor(Math.random() * busMagImagesArray.length);
+  //   }
+  // var newDisplayBusMagImg1 = busMagImagesArray[newImg1];
+  // var newDisplayBusMagImg2 = busMagImagesArray[newImg2];
+  // var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
+
+
+  // var newImg3 = Math.floor(Math.random() * busMagImagesArray.length);
+  // console.log(newImgIndex1 + ' and ' + newImgIndex2 + ' and ' + newImgIndex3);
+
+  // var newDisplayBusMagImg1 = busMagImagesArray[newImg1];
+  // var newDisplayBusMagImg2 = busMagImagesArray[newImg2];
+  // var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
+
+  // var compareNumberOfClicks = document.getElementById('displayBusMagImg');
+  // compareNumberOfClicks.innerHTML = '';
+  // newDisplayBusMagImg1.renderBusMagImageOutput();
+  // newDisplayBusMagImg2.renderBusMagImageOutput();
+  // newDisplayBusMagImg3.renderBusMagImageOutput();
+
+
+// }
+
+function outDisplayTotals (){
+  var outDisplayClickTotals = document.getElementById('diplayTotalClicks');
+  outDisplayClickTotals.innerHTML = '';
+  for (var i = 0; i < busMagImagesArray.length; i++){
+    var outPutTotals = document.createElement('li')
+    outPutTotals.textContent = busMagImagesArray[i].BusMagImage + ' :' + busMagImagesArray[i].liveClicks;
+    listOfImages.appendChild(outPutTotals);
+  }
 
 }
 
 
 
 
-
-
 // ================== Function Calls =====================
-var listOfImages = document.getElementById('displayBusMagImg')
 
+var listOfImages = document.getElementById('displayBusMagImg')
 listOfImages.addEventListener('click', countClickOnBusMagImage);
 
-new busMagImage('R2D2 Bag', 'images/bag.jpg');
-new busMagImage ('Banana Slicer', 'images/banana.jpg');
-new busMagImage ('Bathroom Reader', 'images/bathroom.jpg');
-new busMagImage ('Open Toe Boots', 'images/boots.jpg');
-new busMagImage ('Breakfast Maker', 'images/breakfast.jpg');
-new busMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
+new BusMagImage('R2D2 Bag', 'images/bag.jpg');
+new BusMagImage ('Banana Slicer', 'images/banana.jpg');
+new BusMagImage ('Bathroom Reader', 'images/bathroom.jpg');
+new BusMagImage ('Open Toe Boots', 'images/boots.jpg');
+new BusMagImage ('Breakfast Maker', 'images/breakfast.jpg');
+new BusMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
 
 displayNewBusMagImages();
+
 
 
 
