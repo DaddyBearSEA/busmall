@@ -8,7 +8,7 @@ var totalImageClicks = 0;
 
 
 // ==================== Functions =======================
-
+// constructor to build a new array of images with number of clicks
 function BusMagImage(busMagImageName, src) {
   this.busMagImageName = busMagImageName;
   this.imgSrc = src;
@@ -17,7 +17,7 @@ function BusMagImage(busMagImageName, src) {
   
   busMagImagesArray.push(this);
 }
-
+// redering the pictures from the constructor
 BusMagImage.prototype.renderBusMagImageOutput = function () {
   var target = document.getElementById('displayBusMagImg');
   var busMagImageLI = document.createElement('li');
@@ -31,26 +31,27 @@ BusMagImage.prototype.renderBusMagImageOutput = function () {
   busMagImageNameP.textContent = this.busMagImageName;
   busMagImageLI.appendChild(busMagImageNameP);
 
-
   target.appendChild(busMagImageLI);
 
 }
 
-
-function compareNumberOfClicks() {
+// this function compares the Number of Clicks to the max number you want a user to click
+function compareNumberOfClicks() { 
   console.log(totalImageClicks + 'close to finish');
   if (totalImageClicks === 10) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
     console.log('you are done!')
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
-    displayNewBusMagImages();
+    
     outDisplayTotals();
   }
   else {
     console.log('Please click on an Image');
+    displayNewBusMagImages();
   }
 }
 
+// this function counts the clics on the image you click on.
 function countClickOnBusMagImage(event) {
 
   if (event.target.tagName === 'IMG') {
@@ -67,8 +68,9 @@ function countClickOnBusMagImage(event) {
   }
 
 }
-
+// Displays new bus images after you click
 function displayNewBusMagImages() {
+
   var newImgIndex1 = Math.floor(Math.random() * busMagImagesArray.length);
   var newImgIndex2 = Math.floor(Math.random() * busMagImagesArray.length);
   var newImgIndex3 = Math.floor(Math.random() * busMagImagesArray.length);
@@ -83,7 +85,7 @@ function displayNewBusMagImages() {
   newDisplayBusMagImg2.renderBusMagImageOutput();
   newDisplayBusMagImg3.renderBusMagImageOutput();
 }
-
+// TODO: this code is not working to Randomize the images  - need to work on it.
   // var currentImgI1 = [2, 3, 4];
   // var newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
   // while (newImg1 === currentImgI1[2] || newImg1 === currentImgI1[1]){
@@ -119,12 +121,13 @@ function displayNewBusMagImages() {
 
 // }
 
+// Displays the totals after the limit of clicks
 function outDisplayTotals (){
   var outDisplayClickTotals = document.getElementById('diplayTotalClicks');
   outDisplayClickTotals.innerHTML = '';
   for (var i = 0; i < busMagImagesArray.length; i++){
     var outPutTotals = document.createElement('li')
-    outPutTotals.textContent = busMagImagesArray[i].BusMagImage + ' :' + busMagImagesArray[i].liveClicks;
+    outPutTotals.textContent = busMagImagesArray[i].busMagImageName + ' :' + busMagImagesArray[i].liveClicks;
     listOfImages.appendChild(outPutTotals);
   }
 
@@ -134,8 +137,8 @@ function outDisplayTotals (){
 
 
 // ================== Function Calls =====================
-
-var listOfImages = document.getElementById('displayBusMagImg')
+// listening for the 'click' on the IMG only.
+var listOfImages = document.getElementById('displayBusMagImg');
 listOfImages.addEventListener('click', countClickOnBusMagImage);
 
 new BusMagImage('R2D2 Bag', 'images/bag.jpg');
@@ -144,6 +147,22 @@ new BusMagImage ('Bathroom Reader', 'images/bathroom.jpg');
 new BusMagImage ('Open Toe Boots', 'images/boots.jpg');
 new BusMagImage ('Breakfast Maker', 'images/breakfast.jpg');
 new BusMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
+new BusMagImage ('Desk Chair', 'images/chair.jpg');
+new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
+new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
+new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
+new BusMagImage ('Silverware Pens', 'images/pen.jpg');
+new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
+new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
+new BusMagImage ('Shark Bag', 'images/shark.jpg');
+new BusMagImage ('Baby Sweeper', 'images/sweep.png');
+new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
+new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
+new BusMagImage ('Octapus USB', 'images/usb.gif');
+new BusMagImage ('Water Can', 'images/water-can.jpg');
+new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
+
+
 
 displayNewBusMagImages();
 
