@@ -4,6 +4,7 @@
 // ================== Global Varialbes ==================
 var busMagImagesArray = [];
 var totalImageClicks = 0;
+var currentIndexDisplayed = [5, 0, 3];
 
 // TODO: calculate number of times the image displayed.
 
@@ -13,8 +14,8 @@ function BusMagImage(busMagImageName, src) {
   this.busMagImageName = busMagImageName;
   this.imgSrc = src;
   this.liveClicks = 0;
- 
-  
+  this.imgShown = 0;
+   
   busMagImagesArray.push(this);
 }
 // redering the pictures from the constructor
@@ -66,16 +67,46 @@ function countClickOnBusMagImage(event) {
   }
 
 }
-// Displays new bus images after you click
+// Displays  random new bus images after you click
 function displayNewBusMagImages() {
 
-  var newImgIndex1 = Math.floor(Math.random() * busMagImagesArray.length);
-  var newImgIndex2 = Math.floor(Math.random() * busMagImagesArray.length);
-  var newImgIndex3 = Math.floor(Math.random() * busMagImagesArray.length);
+  // check to see if the image was shown currently
+  // var currentIndexDisplayed = [5, 0, 3];
+  /* 
+  1.  newImg1 make a random number = does it equal position 1 2 or 3 - if so - spin the wheel until it doesn't
+    !! Now you have newImg1 !!
+  2. newImg2 = random number - does it equal number newImg1 or  newImg 3. if so - spin the wheel until it doesn't
+    !!  now you have newImg1 and newImg2 !!
+  3.  newImg 3 make a random number = does it equoal position 1 or 2 - if so - spin the wheel unti it doesn't
+    !!   now you have newImg1, newImg2 and newImg3
 
-  var newDisplayBusMagImg1 = busMagImagesArray[newImgIndex1];
-  var newDisplayBusMagImg2 = busMagImagesArray[newImgIndex2];
-  var newDisplayBusMagImg3 = busMagImagesArray[newImgIndex3];
+
+  */
+
+  var newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
+    while(newImg1 === currentIndexDisplayed[0] ||
+          newImg1 === currentIndexDisplayed[1] ||
+          newImg1 === currentIndexDisplayed[2]){
+          newImg1 = Math.floor(Math.random() * busMagImagesArray.length)
+          }
+  var newImg2 = Math.floor(Math.random() * busMagImagesArray.length);
+    while (newImg2 === newImg1 ||
+            newImg2 === currentIndexDisplayed[0] ||
+            newImg2 === currentIndexDisplayed[2]){
+            newImg2 = Math.floor(Math.random() * busMagImagesArray.length);
+    }
+  var newImg3 = Math.floor(Math.random() * busMagImagesArray.length);
+    while (newImg3 === newImg1 ||
+            newImg3 === newImg2 ||
+            newImg3 === currentIndexDisplayed[0] ||
+            newImg3 === currentIndexDisplayed[1]){
+              newImg3 = Math.floor(Math.random() * busMagImagesArray.length)
+            }
+
+
+  var newDisplayBusMagImg1 = busMagImagesArray[newImg1];
+  var newDisplayBusMagImg2 = busMagImagesArray[newImg2];
+  var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
 
   var compareNumberOfClicks = document.getElementById('displayBusMagImg');
   compareNumberOfClicks.innerHTML = '';
@@ -83,6 +114,9 @@ function displayNewBusMagImages() {
   newDisplayBusMagImg2.renderBusMagImageOutput();
   newDisplayBusMagImg3.renderBusMagImageOutput();
 }
+
+
+
 // TODO: this code is not working to Randomize the images  - need to work on it.
   // var currentImgI1 = [2, 3, 4];
   // var newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
