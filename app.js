@@ -44,7 +44,8 @@ function compareNumberOfClicks() {
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
     
     outDisplayTotals();  // calls the function to diplays totals when = to the limit of clicks
-    makeMyChart(); // calls the function to make the chart
+    makeMyChart(); // calls the function to make the chart1
+    makeMyChart2(); // calls the function to make the Chart2
   }
   else {
     console.log('Please click on an Image');
@@ -52,7 +53,7 @@ function compareNumberOfClicks() {
   }
 }
 
-// this function counts the clics on the image you click on.
+// this function counts the clicks on the image you click on.
 function countClickOnBusMagImage(event) {
 
   if (event.target.tagName === 'IMG') {
@@ -70,18 +71,7 @@ function countClickOnBusMagImage(event) {
 // Displays  random new bus images after you click
 function displayNewBusMagImages() {
 
-  // check to see if the image was shown currently
-  // var currentIndexDisplayed = [5, 0, 3];
-  /* 
-  1.  newImg1 make a random number = does it equal position 1 2 or 3 - if so - spin the wheel until it doesn't
-    !! Now you have newImg1 !!
-  2. newImg2 = random number - does it equal number newImg1 or  newImg 3. if so - spin the wheel until it doesn't
-    !!  now you have newImg1 and newImg2 !!
-  3.  newImg 3 make a random number = does it equoal position 1 or 2 - if so - spin the wheel unti it doesn't
-    !!   now you have newImg1, newImg2 and newImg3
 
-
-  */
 
   var newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
     while(newImg1 === currentIndexDisplayed[0] ||
@@ -103,55 +93,27 @@ function displayNewBusMagImages() {
               newImg3 = Math.floor(Math.random() * busMagImagesArray.length)
             }
 
-
+// you are already working with the Indexes - Pull the number and push up to array
+// imgShown ++  Ron D helped me with this
+            
   var newDisplayBusMagImg1 = busMagImagesArray[newImg1];
+     newDisplayBusMagImg1.imgShown++
   var newDisplayBusMagImg2 = busMagImagesArray[newImg2];
+    newDisplayBusMagImg2.imgShown++
   var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
+    newDisplayBusMagImg3.imgShown++;
 
+  // console.log('New Image: ' + newImg1 + ' ' + newImg2 + ' ' + newImg3)
+  
   var compareNumberOfClicks = document.getElementById('displayBusMagImg');
+  
   compareNumberOfClicks.innerHTML = '';
+
   newDisplayBusMagImg1.renderBusMagImageOutput();
   newDisplayBusMagImg2.renderBusMagImageOutput();
   newDisplayBusMagImg3.renderBusMagImageOutput();
 }
 
-
-
-// TODO: this code is not working to Randomize the images  - need to work on it.
-  // var currentImgI1 = [2, 3, 4];
-  // var newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
-  // while (newImg1 === currentImgI1[2] || newImg1 === currentImgI1[1]){
-  //   newImg1 = Math.floor(Math.random() * busMagImagesArray.length);
-  // }
-  // var newImg2 = Math.floor(Math.random() * busMagImagesArray.length);
-  //   while (
-  //     newImg1 === newImg2 ||
-  //     newImg2 === currentImgI1[0] ||
-  //     newImg2 === currentImgI1[1]
-  //   ) {
-  //     console.log('Change Images');
-  //     newImg2 === Math.floor(Math.random() * busMagImagesArray.length);
-  //   }
-  // var newDisplayBusMagImg1 = busMagImagesArray[newImg1];
-  // var newDisplayBusMagImg2 = busMagImagesArray[newImg2];
-  // var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
-
-
-  // var newImg3 = Math.floor(Math.random() * busMagImagesArray.length);
-  // console.log(newImgIndex1 + ' and ' + newImgIndex2 + ' and ' + newImgIndex3);
-
-  // var newDisplayBusMagImg1 = busMagImagesArray[newImg1];
-  // var newDisplayBusMagImg2 = busMagImagesArray[newImg2];
-  // var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
-
-  // var compareNumberOfClicks = document.getElementById('displayBusMagImg');
-  // compareNumberOfClicks.innerHTML = '';
-  // newDisplayBusMagImg1.renderBusMagImageOutput();
-  // newDisplayBusMagImg2.renderBusMagImageOutput();
-  // newDisplayBusMagImg3.renderBusMagImageOutput();
-
-
-// }
 
 // Displays the totals after the limit of clicks
 function outDisplayTotals (){
@@ -159,7 +121,7 @@ function outDisplayTotals (){
   outDisplayClickTotals.innerHTML = '';
   for (var i = 0; i < busMagImagesArray.length; i++){
     var outPutTotals = document.createElement('li')
-    outPutTotals.textContent = busMagImagesArray[i].busMagImageName + ' :' + busMagImagesArray[i].liveClicks;
+    outPutTotals.textContent = busMagImagesArray[i].busMagImageName + ' :' + busMagImagesArray[i].liveClicks + ' Shown: ' + busMagImagesArray[i].imgShown + ' times';
     listOfImages.appendChild(outPutTotals);
   }
 
@@ -179,20 +141,20 @@ new BusMagImage ('Bathroom Reader', 'images/bathroom.jpg');
 new BusMagImage ('Open Toe Boots', 'images/boots.jpg');
 new BusMagImage ('Breakfast Maker', 'images/breakfast.jpg');
 new BusMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
-new BusMagImage ('Desk Chair', 'images/chair.jpg');
-new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
-new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
-new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
-new BusMagImage ('Silverware Pens', 'images/pen.jpg');
-new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
-new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
-new BusMagImage ('Shark Bag', 'images/shark.jpg');
-new BusMagImage ('Baby Sweeper', 'images/sweep.png');
-new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
-new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
-new BusMagImage ('Octapus USB', 'images/usb.gif');
-new BusMagImage ('Water Can', 'images/water-can.jpg');
-new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
+// new BusMagImage ('Desk Chair', 'images/chair.jpg');
+// new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
+// new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
+// new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
+// new BusMagImage ('Silverware Pens', 'images/pen.jpg');
+// new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
+// new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
+// new BusMagImage ('Shark Bag', 'images/shark.jpg');
+// new BusMagImage ('Baby Sweeper', 'images/sweep.png');
+// new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
+// new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
+// new BusMagImage ('Octapus USB', 'images/usb.gif');
+// new BusMagImage ('Water Can', 'images/water-can.jpg');
+// new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
 
 
 
@@ -220,7 +182,7 @@ length: 7
 // ------- Make my Chart -------
 // chart should be created after the number of click = the Value of number of clicks
 
-
+// show a bar graph to show the number of clicks
 function makeMyChart() {
   console.log('You hit function makeMyChart!');
   var inputMyLabels = [];
@@ -229,11 +191,10 @@ function makeMyChart() {
     inputMyLabels.push(busMagImagesArray[i].busMagImageName);
     inputMyData.push(busMagImagesArray[i].liveClicks);
 
-}
+  }
 
 
-
-  // =============chart js ======================
+// =============chart js ======================
 
 var ctx = document.getElementById('myChart');
 
@@ -312,81 +273,95 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+}
 
 // ===================== Begin 2nd Chart =====================
-// var ctx = document.getElementById('myChart2').getContext('2d');
-// var myChart2 = new Chart(ctx, {
-//     type: 'line',
-//     data: {
-//         labels: ['USB', 'Chair', 'Sleaper', 'Wine Glass', 'Water Can', 'Unicorn'],
-//         datasets: [{
-//             label: 'Total Times Shown',
-//             data: [12, 19, 3, 5, 2, 3],
-//             backgroundColor: [
-//                 'rgba(255, 99, 132, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(255, 159, 64, 0.2)'
-//             ],
-//             borderColor: [
-//               'rgba(255, 99, 132, 1)',
-//               'rgba(54, 162, 235, 1)',
-//               'rgba(255, 206, 86, 1)',
-//               'rgba(75, 192, 192, 1)',
-//               'rgba(153, 102, 255, 1)',
-//               'rgba(54, 162, 235, 1)',
-//               'rgba(255, 206, 86, 1)',
-//               'rgba(75, 192, 192, 1)',
-//               'rgba(153, 102, 255, 1)',
-//               'rgba(54, 162, 235, 1)',
-//               'rgba(255, 206, 86, 1)',
-//               'rgba(75, 192, 192, 1)',
-//               'rgba(153, 102, 255, 1)',
-//               'rgba(54, 162, 235, 1)',
-//               'rgba(255, 206, 86, 1)',
-//               'rgba(75, 192, 192, 1)',
-//               'rgba(153, 102, 255, 1)',
-//               'rgba(54, 162, 235, 1)',
-//               'rgba(255, 206, 86, 1)',
-//               'rgba(75, 192, 192, 1)',
-//               'rgba(153, 102, 255, 1)',
-//               'rgba(255, 206, 86, 1)',
-//               'rgba(75, 192, 192, 1)',
-//               'rgba(153, 102, 255, 1)',
-//               'rgba(255, 159, 64, 1)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
-//     }
-// });
+// to show a line graph for times shown
+
+console.log('You made it to Chart 2');
+
+function makeMyChart2(){
+  var inputMyLabels2 = [];
+  var inputMyData2 = [];
+  for (var i = 0; i < busMagImagesArray.length; i++){
+    inputMyLabels2.push(busMagImagesArray[i].busMagImageName);
+    inputMyData2.push(busMagImagesArray[i].imgShown);
+  }
+console.log('You made it past the function for Chat 2');
+  // =============chart js ======================
+var ctx = document.getElementById('myChart2').getContext('2d');
+var myChart2 = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: inputMyLabels2,
+        datasets: [{
+            label: 'Total Times Shown',
+            data: [5, 20, 8, 10, 30],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 }

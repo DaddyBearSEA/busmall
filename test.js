@@ -1,7 +1,18 @@
 
 'use strict'
 
+  // check to see if the image was shown currently Random Number
+  // var currentIndexDisplayed = [5, 0, 3];
+  /* 
+  1.  newImg1 make a random number = does it equal position 1 2 or 3 - if so - spin the wheel until it doesn't
+    !! Now you have newImg1 !!
+  2. newImg2 = random number - does it equal number newImg1 or  newImg 3. if so - spin the wheel until it doesn't
+    !!  now you have newImg1 and newImg2 !!
+  3.  newImg 3 make a random number = does it equoal position 1 or 2 - if so - spin the wheel unti it doesn't
+    !!   now you have newImg1, newImg2 and newImg3
 
+
+  */
 
 
 // ================== Global Varialbes ==================
