@@ -1,6 +1,26 @@
 
 'use strict'
 
+
+
+scales: {
+  x: {
+      stacked: true
+  },
+  y: {
+      stacked: true
+  }
+}
+
+
+
+
+
+
+
+
+
+
   // check to see if the image was shown currently Random Number
   // var currentIndexDisplayed = [5, 0, 3];
   /* 
