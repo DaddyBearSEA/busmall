@@ -1,12 +1,24 @@
 'use strict'
 
+// TODO:  2nd Chart should Overlay main chart - see video
+// TODO:  Random number still isn't working correctly.
+// TODO:  Add a User store session into Localstorage between Page Refreshes  - / as it ends add the array to the local storage.
+//            a: store the producst arrray into local storage as a stringyfy JSON String
+//            b: retrieve the products array from local storage and then Remember you 
+//                have to send the array back through the constructor.
+
 
 // ================== Global Varialbes ==================
 var busMagImagesArray = [];
 var totalImageClicks = 0;
 var currentIndexDisplayed = [5, 0, 3];
+var busMallTimeVisitedPage = 0;
 
-// TODO: calculate number of times the image displayed.
+
+
+
+
+//
 
 // ==================== Functions =======================
 // constructor to build a new array of images with number of clicks
@@ -38,14 +50,16 @@ BusMagImage.prototype.renderBusMagImageOutput = function () {
 
 // this function compares the Number of Clicks to the max number you want a user to click
 function compareNumberOfClicks() { 
-  if (totalImageClicks === 10) {
+  if (totalImageClicks === 5) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
     alert('You are done Clicking!');
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
     
+    // restoreMyData();
     outDisplayTotals();  // calls the function to diplays totals when = to the limit of clicks
     makeMyChart(); // calls the function to make the chart1
     makeMyChart2(); // calls the function to make the Chart2
+    storeMyData();
   }
   else {
     console.log('Please click on an Image');
@@ -103,8 +117,6 @@ function displayNewBusMagImages() {
   var newDisplayBusMagImg3 = busMagImagesArray[newImg3];
     newDisplayBusMagImg3.imgShown++;
 
-  // console.log('New Image: ' + newImg1 + ' ' + newImg2 + ' ' + newImg3)
-  
   var compareNumberOfClicks = document.getElementById('displayBusMagImg');
   
   compareNumberOfClicks.innerHTML = '';
@@ -123,9 +135,40 @@ function outDisplayTotals (){
     var outPutTotals = document.createElement('li')
     outPutTotals.textContent = busMagImagesArray[i].busMagImageName + ' :' + busMagImagesArray[i].liveClicks + ' Shown: ' + busMagImagesArray[i].imgShown + ' times';
     listOfImages.appendChild(outPutTotals);
+
+    
   }
 
 }
+
+// =======================  localStorage  =============================
+
+function storeMyData(){
+  var busMallvisitDataStored = JSON.stringify(busMagImagesArray );
+    localStorage.setItem('MyBusData',  busMallvisitDataStored)
+}
+
+
+function restoreMyData(){
+   var busDatafromStorage = localStorage.getItem('MyBusData');
+  var retrieveMyBusData = JSON.parse(busDatafromStorage);
+
+  var retrievedMyBusData = new BusMagImage(retrieveMyBusData);
+  retrievedMyBusData.BusMagImage();
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -141,20 +184,20 @@ new BusMagImage ('Bathroom Reader', 'images/bathroom.jpg');
 new BusMagImage ('Open Toe Boots', 'images/boots.jpg');
 new BusMagImage ('Breakfast Maker', 'images/breakfast.jpg');
 new BusMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
-// new BusMagImage ('Desk Chair', 'images/chair.jpg');
-// new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
-// new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
-// new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
-// new BusMagImage ('Silverware Pens', 'images/pen.jpg');
-// new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
-// new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
-// new BusMagImage ('Shark Bag', 'images/shark.jpg');
-// new BusMagImage ('Baby Sweeper', 'images/sweep.png');
-// new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
-// new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
-// new BusMagImage ('Octapus USB', 'images/usb.gif');
-// new BusMagImage ('Water Can', 'images/water-can.jpg');
-// new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
+new BusMagImage ('Desk Chair', 'images/chair.jpg');
+new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
+new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
+new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
+new BusMagImage ('Silverware Pens', 'images/pen.jpg');
+new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
+new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
+new BusMagImage ('Shark Bag', 'images/shark.jpg');
+new BusMagImage ('Baby Sweeper', 'images/sweep.png');
+new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
+new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
+new BusMagImage ('Octapus USB', 'images/usb.gif');
+new BusMagImage ('Water Can', 'images/water-can.jpg');
+new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
 
 
 
@@ -163,20 +206,8 @@ displayNewBusMagImages();
 
 // =============== Start to Rendering Chart ================
 
-// =============== DATA working with ====================
-/*
-0: BusMagImage {busMagImageName: "R2D2 Bag", imgSrc: "images/bag.jpg", liveClicks: 1}
-1: BusMagImage {busMagImageName: "Banana Slicer", imgSrc: "images/banana.jpg", liveClicks: 0}
-2: BusMagImage {busMagImageName: "Bathroom Reader", imgSrc: "images/bathroom.jpg", liveClicks: 2}
-3: BusMagImage {busMagImageName: "Open Toe Boots", imgSrc: "images/boots.jpg", liveClicks: 1}
-4: BusMagImage {busMagImageName: "Breakfast Maker", imgSrc: "images/breakfast.jpg", liveClicks: 2}
-5: BusMagImage {busMagImageName: "Bubble Gum Meatballs", imgSrc: "images/bubblegum.jpg", liveClicks: 2}
-6: BusMagImage {busMagImageName: "Desk Chair", imgSrc: "images/chair.jpg", liveClicks: 2}
-length: 7
 
 
-
-*/
 // ================ Create Data for Chart =================
 
 // ------- Make my Chart -------
@@ -296,7 +327,7 @@ var myChart2 = new Chart(ctx, {
         labels: inputMyLabels2,
         datasets: [{
             label: 'Total Times Shown',
-            data: [5, 20, 8, 10, 30],
+            data: inputMyData2,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.7)',
                 'rgba(54, 162, 235, 0.7)',
