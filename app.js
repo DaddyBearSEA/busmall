@@ -55,7 +55,7 @@ function compareNumberOfClicks() {
     alert('You are done Clicking!');
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
     
-    // restoreMyData();
+    restoreMyData();
     outDisplayTotals();  // calls the function to diplays totals when = to the limit of clicks
     makeMyChart(); // calls the function to make the chart1
     makeMyChart2(); // calls the function to make the Chart2
@@ -150,13 +150,13 @@ function storeMyData(){
 
 
 function restoreMyData(){
-   var busDatafromStorage = localStorage.getItem('MyBusData');
+  console.log ('You are at Restore My Data');
+  
+  var busDatafromStorage = localStorage.getItem('MyBusData');
   var retrieveMyBusData = JSON.parse(busDatafromStorage);
 
   var retrievedMyBusData = new BusMagImage(retrieveMyBusData);
-  retrievedMyBusData.BusMagImage();
-
-
+  // retrievedMyBusData.BusMagImage();
 }
 
 
@@ -215,7 +215,7 @@ displayNewBusMagImages();
 
 // show a bar graph to show the number of clicks
 function makeMyChart() {
-  console.log('You hit function makeMyChart!');
+  console.log('You hit makeMyChart!');
   var inputMyLabels = [];
   var inputMyData = [];
   for (var i = 0; i < busMagImagesArray.length; i++){
