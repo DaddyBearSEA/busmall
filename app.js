@@ -30,6 +30,11 @@ function BusMagImage(busMagImageName, src) {
    
   busMagImagesArray.push(this);
 }
+
+
+
+
+
 // redering the pictures from the constructor
 BusMagImage.prototype.renderBusMagImageOutput = function () {
   var target = document.getElementById('displayBusMagImg');
@@ -50,16 +55,19 @@ BusMagImage.prototype.renderBusMagImageOutput = function () {
 
 // this function compares the Number of Clicks to the max number you want a user to click
 function compareNumberOfClicks() { 
+  
+  storeMyData();
+
   if (totalImageClicks === 5) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
     alert('You are done Clicking!');
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
     
-    // restoreMyData();
+    restoreMyData();
     outDisplayTotals();  // calls the function to diplays totals when = to the limit of clicks
     makeMyChart(); // calls the function to make the chart1
     makeMyChart2(); // calls the function to make the Chart2
-    storeMyData();
+    // storeMyData();
   }
   else {
     console.log('Please click on an Image');
@@ -144,21 +152,33 @@ function outDisplayTotals (){
 // =======================  localStorage  =============================
 
 function storeMyData(){
-  var busMallvisitDataStored = JSON.stringify(busMagImagesArray );
+  var busMallvisitDataStored = JSON.stringify(busMagImagesArray);
     localStorage.setItem('MyBusData',  busMallvisitDataStored)
+  var storeTotalClicks = JSON.stringify(totalImageClicks);
+    localStorage.setItem('busTotalClicks', storeTotalClicks);
 }
 
 
 function restoreMyData(){
-   var busDatafromStorage = localStorage.getItem('MyBusData');
+  console.log ('You are at Restore My Data');
+  
+  var busDatafromStorage = localStorage.getItem('MyBusData');
   var retrieveMyBusData = JSON.parse(busDatafromStorage);
 
-  var retrievedMyBusData = new BusMagImage(retrieveMyBusData);
-  retrievedMyBusData.BusMagImage();
+  var writingParsedFromLS = new BusMagImage(retrieveMyBusData.busMagImageName);
+  var totalClicksFromStorage = localStorage.getItem('busTotalClicks');
+  var retrieveTotalClicks = JSON.parse(totalClicksFromStorage);
 
 
+  // TODO: take the data in the current objects to pass into the BusImageArray
+  // TODO: Total clicks set the number of clicks to the restored data.
+  // TODO:  after you hit the ceiling, erase the storage.
+
+
+  // retrieveMyBusData.BusMagImage();
 }
 
+// Test Git Hub on grabbing this pull request
 
 
 
@@ -177,6 +197,8 @@ function restoreMyData(){
 // listening for the 'click' on the IMG only.
 var listOfImages = document.getElementById('displayBusMagImg');
 listOfImages.addEventListener('click', countClickOnBusMagImage);
+
+if (restoreMyData.retrieveMyBusData !== null) {
 
 new BusMagImage('R2D2 Bag', 'images/bag.jpg');
 new BusMagImage ('Banana Slicer', 'images/banana.jpg');
@@ -199,10 +221,25 @@ new BusMagImage ('Octapus USB', 'images/usb.gif');
 new BusMagImage ('Water Can', 'images/water-can.jpg');
 new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
 
+} else {
+  retrieveMyBusData.BusMagImage();
+}
+
+
+
+
+
+//if anything in local storage  !== null 
+// grab the data and put it into the starting data
+/*
+if(parsedDrinks !== null){
+  Coffee.drinks = parsedDrinks; // if there isnt anything, drinks === null
+  renderOrders(); // dont do this if nothing comes back
+*/
+
 
 
 displayNewBusMagImages();
-
 
 // =============== Start to Rendering Chart ================
 
@@ -215,7 +252,7 @@ displayNewBusMagImages();
 
 // show a bar graph to show the number of clicks
 function makeMyChart() {
-  console.log('You hit function makeMyChart!');
+  console.log('You hit makeMyChart!');
   var inputMyLabels = [];
   var inputMyData = [];
   for (var i = 0; i < busMagImagesArray.length; i++){
