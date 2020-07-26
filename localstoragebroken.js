@@ -15,7 +15,11 @@ var currentIndexDisplayed = [5, 0, 3];
 var busMallTimeVisitedPage = 0;
 
 
-console.log(totalImageClicks);
+
+// buildANewPreview();
+
+
+//
 
 // ==================== Functions =======================
 // constructor to build a new array of images with number of clicks
@@ -37,7 +41,8 @@ BusMagImage.prototype.renderBusMagImageOutput = function () {
   var target = document.getElementById('displayBusMagImg');
   var busMagImageLI = document.createElement('li');
   var busMagImageIMG = document.createElement('img');
- 
+  console.log('prototype is hit')
+
   busMagImageIMG.src = this.imgSrc;
   busMagImageIMG.alt = this.busMagImageName;
   busMagImageLI.appendChild(busMagImageIMG);
@@ -53,18 +58,18 @@ BusMagImage.prototype.renderBusMagImageOutput = function () {
 // this function compares the Number of Clicks to the max number you want a user to click
 function compareNumberOfClicks() { 
   
-  storeMyData();
+  // storeMyData();
 
   if (totalImageClicks === 5) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
     alert('You are done Clicking!');
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
     
-    // restoreMyData();  // this didn't bring in the totals
+    // restoreMyData();
     outDisplayTotals();  // calls the function to diplays totals when = to the limit of clicks
     makeMyChart(); // calls the function to make the chart1
     makeMyChart2(); // calls the function to make the Chart2
-    storeMyData();
+    // storeMyData();
   }
   else {
     console.log('Please click on an Image');
@@ -87,6 +92,8 @@ function countClickOnBusMagImage(event) {
   }
 
 }
+
+
 // Displays  random new bus images after you click
 function displayNewBusMagImages() {
 
@@ -144,52 +151,53 @@ function outDisplayTotals (){
 
 }
 
+// restoreMyData();
+
 // =======================  localStorage  =============================
 
-function storeMyData(){
-  var busMallvisitDataStored = JSON.stringify(busMagImagesArray);
-    localStorage.setItem('MyBusData',  busMallvisitDataStored)
-  var storeTotalClicks = JSON.stringify(totalImageClicks);
-    localStorage.setItem('busTotalClicks', storeTotalClicks);
-}
+// function storeMyData(){
+//   var busMallvisitDataStored = JSON.stringify(busMagImagesArray);
+//     localStorage.setItem('MyBusData',  busMallvisitDataStored)
+//   var storeTotalClicks = JSON.stringify(totalImageClicks);
+//     localStorage.setItem('busTotalClicks', storeTotalClicks);
+// }
 
 
-function restoreMyData(){
-  console.log ('You are at Restore My Data');
-  console.log('Top of Function: ' + storeTotalClicks);
 
-  var busDatafromStorage = localStorage.getItem('MyBusData'); // gets array of images and data
-  var retrieveMyBusData = JSON.parse(busDatafromStorage);
-  console.log(retrieveMyBusData);
+// function restoreMyData() {
 
-  var writingParsedFromLS = new BusMagImage(retrieveMyBusData.busMagImageName);
- new BusMagImage(retrieveMyBusData.busMagImageName);
+//   if (restoreMyData.retrieveMyBusData !== null) {
+//     console.log('Checking to see if there is local storage');
 
 
-  var totalClicksFromStorage = localStorage.getItem('busTotalClicks'); // gets the number of clicks
-  // var retrieveTotalClicks = JSON.parse(totalClicksFromStorage);
-  var storeTotalClicks = JSON.parse(totalClicksFromStorage);
-  console.log('retrieved ' + storeTotalClicks);
+    var busDatafromStorage = localStorage.getItem('MyBusData'); // grabbing the array of data
+    var retrieveMyBusData = JSON.parse(busDatafromStorage);
+    console.log('My Data: ' + retrieveTotalClicks);
+    // new BusMagImage(retrieveMyBusData);
+
+
+//     var totalClicksFromStorage = localStorage.getItem('busTotalClicks'); // grabbing the current total clicks
+//     var retrieveTotalClicks = JSON.parse(totalClicksFromStorage);
+//     console.log('total clicks from LS: ' + retrieveTotalClicks);
+
+
+
+//   } else {
+//     retrieveMyBusData.BusMagImage();
+//     console.log('There was Data Already!');
+//   }
 
 
   // TODO: take the data in the current objects to pass into the BusImageArray
+  // TODO:  Remove the current local storage and then re-write it with the new data.
   // TODO: Total clicks set the number of clicks to the restored data.
   // TODO:  after you hit the ceiling, erase the storage.
 
 
   // retrieveMyBusData.BusMagImage();
-}
+// }
 
 // Test Git Hub on grabbing this pull request
-
-
-
-
-
-
-
-
-
 
 
 
@@ -200,8 +208,11 @@ function restoreMyData(){
 var listOfImages = document.getElementById('displayBusMagImg');
 listOfImages.addEventListener('click', countClickOnBusMagImage);
 
-// if (restoreMyData.retrieveMyBusData !== null) {
-function buildANewPreview(){
+// TODO: check for data in local storage
+
+// function buildANewPreview() {
+  console.log('Im in the Build a Bear Function');
+
 new BusMagImage('R2D2 Bag', 'images/bag.jpg');
 new BusMagImage ('Banana Slicer', 'images/banana.jpg');
 new BusMagImage ('Bathroom Reader', 'images/bathroom.jpg');
@@ -209,30 +220,25 @@ new BusMagImage ('Open Toe Boots', 'images/boots.jpg');
 new BusMagImage ('Breakfast Maker', 'images/breakfast.jpg');
 new BusMagImage ('Bubble Gum Meatballs', 'images/bubblegum.jpg');
 new BusMagImage ('Desk Chair', 'images/chair.jpg');
-new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
-new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
-new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
-new BusMagImage ('Silverware Pens', 'images/pen.jpg');
-new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
-new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
-new BusMagImage ('Shark Bag', 'images/shark.jpg');
-new BusMagImage ('Baby Sweeper', 'images/sweep.png');
-new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
-new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
-new BusMagImage ('Octapus USB', 'images/usb.gif');
-new BusMagImage ('Water Can', 'images/water-can.jpg');
-new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
-}
+console.log('end of image list')
+// new BusMagImage ('Action Figure', 'images/cthulhu.jpg');
+// new BusMagImage ('Duckbilled Dog', 'images/dog-duck.jpg');
+// new BusMagImage ('Dragon Meat', 'images/dragon.jpg');
+// new BusMagImage ('Silverware Pens', 'images/pen.jpg');
+// new BusMagImage ('Pet Sweaper', 'images/pet-sweep.jpg');
+// new BusMagImage ('Pizza Scissors', 'images/scissors.jpg');
+// new BusMagImage ('Shark Bag', 'images/shark.jpg');
+// new BusMagImage ('Baby Sweeper', 'images/sweep.png');
+// new BusMagImage ('Kids Sleeping Bag', 'images/tauntaun.jpg');
+// new BusMagImage ('Unicorn Meat', 'images/unicorn.jpg');
+// new BusMagImage ('Octapus USB', 'images/usb.gif');
+// new BusMagImage ('Water Can', 'images/water-can.jpg');
+// new BusMagImage ('Wine Glass', 'images/wine-glass.jpg');
 
-// restoreMyData();
-buildANewPreview();
-
-
-// } else {
-//   retrieveMyBusData.BusMagImage();
 // }
 
 
+// buildANewPreview();
 
 
 
@@ -246,7 +252,7 @@ if(parsedDrinks !== null){
 
 
 
-displayNewBusMagImages();
+// displayNewBusMagImages();
 
 // =============== Start to Rendering Chart ================
 
@@ -353,7 +359,7 @@ var myChart = new Chart(ctx, {
 // ===================== Begin 2nd Chart =====================
 // to show a line graph for times shown
 
-console.log('You made it to Chart 2');
+// console.log('You made it to Chart 2');
 
 function makeMyChart2(){
   var inputMyLabels2 = [];
