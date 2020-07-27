@@ -55,7 +55,7 @@ function compareNumberOfClicks() {
   
   storeMyData();
 
-  if (totalImageClicks === 5) {
+  if (totalImageClicks === 25) {
     var compareNumberofClicks = document.getElementById('displayBusMagImg');
     alert('You are done Clicking!');
     listOfImages.removeEventListener('click', countClickOnBusMagImage);
